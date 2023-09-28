@@ -7,12 +7,20 @@ public class Player : MonoBehaviour
 {
     public int speed = 10;
     private Rigidbody rb;
+    public int jumpSt = 7;
+    public bool floored;
 
     void Start()
     {
         Debug.Log("START");
         TryGetComponent(out rb);
     }
+
+    private void OnCollisionEnter(Collision collision){
+        if (!floored && collision.gameObject.tag == "Chão"){
+            floored = true;
+            }
+        }
 
     void Update()
     {
@@ -22,6 +30,11 @@ public class Player : MonoBehaviour
 
         Vector3 direction = new Vector3(h,0,v);
         rb.AddForce(direction * speed * Time.deltaTime,ForceMode.Impulse);
+
+        if (Input.GetKeyDown(KeyCode.Space) && floored){
+            rb.AddForce(Vector3.up * jumpSt, ForceMode.Impulse);
+            floored = false;
+        }
 
         if(transform.position.y <= -1){
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
