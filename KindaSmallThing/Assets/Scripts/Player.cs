@@ -9,11 +9,13 @@ public class Player : MonoBehaviour
     private Rigidbody rb;
     public int jumpSt = 7;
     public bool floored;
+    private AudioSource source;
 
     void Start()
     {
         Debug.Log("START");
         TryGetComponent(out rb);
+        TryGetComponent(out source);
     }
 
     private void OnCollisionEnter(Collision collision){
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && floored){
             rb.AddForce(Vector3.up * jumpSt, ForceMode.Impulse);
             floored = false;
+            source.Play();
         }
 
         if(transform.position.y <= -1){
