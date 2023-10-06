@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     public TextMeshProUGUI HUD, WinMsg;
@@ -15,23 +16,25 @@ public class GameManager : MonoBehaviour
         TryGetComponent(out source);
         restantes = FindObjectsOfType<Moeda>().Length;
 
-        HUD.text = "GAY SEX: " + restantes;
+        HUD.text = "Jiggies: " + restantes;
     }
     
     public void SubtrairMoedas(int valor){
         restantes -= valor;
-        HUD.text = "GAY SEX: " + restantes;
+        HUD.text = "Jiggies: " + restantes;
         source.PlayOneShot(clipCoin);
 
         if(restantes <= 0){
-            WinMsg.text = "AYYYYYY LMAO";
+            WinMsg.text = "CONGRATS!!!!1!";
             source.Stop();
             source.PlayOneShot(clipWin);
 
+            Invoke("ProxFase", 5);
         }
     }
-    void Update()
+
+    void ProxFase()
     {
-        
+        SceneManager.LoadScene("Fase 2");
     }
 }
