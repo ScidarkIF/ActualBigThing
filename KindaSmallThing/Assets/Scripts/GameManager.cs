@@ -31,6 +31,8 @@ public class GameManager : MonoBehaviour
 
             Invoke("ProxFase", 5);
         }
+        
+        // if()
     }
 
     void ProxFase()
